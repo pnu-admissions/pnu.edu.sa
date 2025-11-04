@@ -151,7 +151,7 @@
       }
     };
  </script>
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
@@ -159,21 +159,21 @@
 <title>نموذج تقديم طالب جديد - جامعة الأميرة نورة</title>
 <style>
 body {font-family: Arial, sans-serif; background:#f3f4f6; padding:20px;}
-#applicantBtn {display:block; width:100%; max-width:300px; margin:10px auto; padding:12px; font-weight:800; border:0; border-radius:8px; background:#0b7a36; color:#fff; cursor:pointer;}
+#applicantBtn {display:block; width:100%; max-width:320px; margin:10px auto; padding:16px; font-weight:800; border:0; border-radius:8px; background:#0b7a36; color:#fff; cursor:pointer; font-size:16px;}
 #appDrawerWrapper {transition: all .36s ease; max-height:0; overflow:hidden; opacity:0; transform: translateY(-10px);}
-#appDrawerWrapper.open {max-height:5000px; opacity:1; transform: translateY(0);}
-.app-form {background:#fff; padding:20px; border-radius:10px; box-shadow:0 6px 20px rgba(15,23,42,0.04);}
-.grid {display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+#appDrawerWrapper.open {max-height:6000px; opacity:1; transform: translateY(0);}
+.app-form {background:#fff; padding:25px; border-radius:12px; box-shadow:0 6px 20px rgba(15,23,42,0.08);}
+.grid {display:grid; grid-template-columns:1fr 1fr; gap:18px;}
 .full {grid-column:1 / -1;}
 label {display:block; font-weight:700; margin-bottom:6px;}
-input, select, textarea {width:100%; padding:12px; border:1px solid #ccc; border-radius:8px; font-size:14px;}
-textarea {min-height:120px;}
-.section {border-top:1px dashed #e6e9ef; padding-top:12px; margin-top:8px; font-weight:800; color:#0b7a36;}
-.btn {padding:10px 16px; border-radius:8px; cursor:pointer; border:0; font-weight:800;}
+input, select, textarea {width:100%; padding:14px; border:1px solid #ccc; border-radius:10px; font-size:15px; box-sizing:border-box;}
+textarea {min-height:140px;}
+.section {border-top:1px dashed #e6e9ef; padding-top:14px; margin-top:10px; font-weight:800; color:#0b7a36;}
+.btn {padding:12px 18px; border-radius:8px; cursor:pointer; border:0; font-weight:800; font-size:15px;}
 .btn.primary {background:#0b5fff; color:#fff;}
 .btn.gray {background:#6b7280; color:#fff;}
+.form-message {margin-top:12px; font-weight:700; color:green;}
 @media (max-width:980px) {.grid {grid-template-columns:1fr;}}
-.form-message {margin-top:10px; font-weight:700; color:green;}
 </style>
 </head>
 <body>
@@ -182,7 +182,7 @@ textarea {min-height:120px;}
 
 <div id="appDrawerWrapper">
   <div class="app-form">
-    <form id="applicantForm" class="grid">
+    <form id="applicantForm" class="grid" enctype="multipart/form-data">
       <div class="full" style="display:flex; justify-content:space-between; align-items:center;">
         <h3>نموذج تقديم طالب جديد — جامعة الأميرة نورة</h3>
         <button type="button" id="closeAppForm" class="btn gray">إغلاق</button>
@@ -218,7 +218,7 @@ textarea {min-height:120px;}
       <div class="section full">2. بيانات الاتصال / Contact</div>
       <div><label>رقم الجوال *</label><input name="phone" type="tel" required></div>
       <div><label>البريد الإلكتروني *</label><input name="email" type="email" required></div>
-      <div class="full"><label>العنوان</label><textarea name="address"></textarea></div>
+      <div class="full"><label>العنوان *</label><textarea name="address" required></textarea></div>
 
       <!-- Academic Info -->
       <div class="section full">3. البيانات الأكاديمية / Academic</div>
@@ -234,31 +234,37 @@ textarea {min-height:120px;}
       </div>
       <div><label>اسم المؤسسة *</label><input name="issuingInstitution" required></div>
       <div><label>البلد *</label><input name="degreeCountry" required></div>
-      <div><label>التخصص</label><input name="major"></div>
+      <div><label>التخصص *</label><input name="major" required></div>
       <div><label>سنة التخرج *</label><input type="number" name="graduationYear" required></div>
       <div><label>المعدل *</label><input name="gpa" required></div>
 
+      <!-- Tests -->
+      <div class="section full">4. الاختبارات / Tests</div>
+      <div><label>قياس / Qiyas</label><select name="hasQiyas"><option value="">اختر</option><option value="no">لا</option><option value="yes">نعم</option></select></div>
+      <div><label>رقم جلوس قياس</label><input name="qiyasNo"></div>
+      <div><label>درجة قياس</label><input name="qiyasScore"></div>
+      <div><label>التحصيلي / Tahseeli seat no.</label><input name="tahseeliNo"></div>
+      <div><label>اختبار اللغة / English test</label><input name="englishTests"></div>
+
+      <!-- Upload Files -->
+      <div class="section full">5. المرفقات / Attachments</div>
+      <div class="full"><label>الشهادة والسجل الأكاديمي *</label><input type="file" name="certificates" accept="application/pdf,image/*" multiple required></div>
+      <div><label>السيرة الذاتية / CV</label><input type="file" name="cv" accept="application/pdf"></div>
+      <div><label>أوراق منشورة / Publications</label><input type="file" name="publications" accept="application/pdf,image/*" multiple></div>
+      <div class="full"><label>صورة الهوية أو نسخة الإقامة *</label><input type="file" name="idAttachment" accept="application/pdf,image/*" required></div>
+
       <!-- Program Selection -->
-      <div class="section full">4. اختيار البرنامج / Program Selection</div>
-      <div class="full"><label>اختر البرنامج الدراسي *</label>
-        <select name="selectedProgram" required>
-          <option value="">اختر</option>
-          <option value="medicine">الطب البشري</option>
-          <option value="dentistry">طب الأسنان</option>
-          <option value="pharmacy">الصيدلة</option>
-          <option value="nursing">التمريض</option>
-          <option value="engineering">الهندسة</option>
-          <option value="computer_science">علوم الحاسب</option>
-        </select>
-      </div>
+      <div class="section full">6. اختيار البرنامج / Program Selection</div>
+      <div class="full"><label>ما هو البرنامج الذي ترغب بالتقديم له؟ *</label><input name="desiredProgram" required placeholder="اكتب اسم البرنامج"></div>
+      <div class="full"><label>ملاحظات أخرى عن التقديم</label><textarea name="notes"></textarea></div>
 
-      <!-- Payment -->
-      <div class="section full">5. الدفع / Payment</div>
-      <div><label>المبلغ الثابت: 1000 ريال / Fixed fee: 1000 SAR</label></div>
-      <div><label>رقم الحساب البنكي / IBAN</label><input value="SA4080000859608017979448" readonly></div>
-      <div><label>رقم التحويل / Transaction ID *</label><input name="transactionId" required></div>
-      <div class="full"><label>رفع الإيصال / Upload receipt *</label><input type="file" name="receipt" required></div>
+      <!-- Declarations -->
+      <div class="section full">7. التواقيع والإقرارات / Declarations</div>
+      <div class="full"><label>اسم مقدم الطلب *</label><input name="declarantName" required></div>
+      <div><label>تاريخ التقديم *</label><input type="date" name="declarationDate" required></div>
+      <div class="full"><label>التوقيع الإلكتروني *</label><input name="electronicSignature" required placeholder="اكتب اسمك الكامل"></div>
 
+      <!-- Submit -->
       <div class="full row-actions">
         <button type="submit" class="btn primary">إرسال / Submit</button>
       </div>
@@ -268,26 +274,91 @@ textarea {min-height:120px;}
 </div>
 
 <script>
-document.getElementById('applicantBtn').addEventListener('click',()=>document.getElementById('appDrawerWrapper').classList.add('open'));
-document.getElementById('closeAppForm').addEventListener('click',()=>document.getElementById('appDrawerWrapper').classList.remove('open'));
+const drawer = document.getElementById('appDrawerWrapper');
+const btnOpen = document.getElementById('applicantBtn');
+const btnClose = document.getElementById('closeAppForm');
+const form = document.getElementById('applicantForm');
+const formMsg = document.getElementById('formMessage');
 
-document.getElementById('applicantForm').addEventListener('submit', function(e){
+btnOpen.addEventListener('click',()=>drawer.classList.add('open'));
+btnClose.addEventListener('click',()=>drawer.classList.remove('open'));
+
+function validateForm(f){
+  let valid=true;
+  const requiredFields=f.querySelectorAll('[required]');
+  requiredFields.forEach(r=>{
+    if(!r.value || (r.type==='file' && r.files.length===0)){
+      valid=false;
+      r.style.borderColor='red';
+    } else {
+      r.style.borderColor='#ccc';
+    }
+  });
+  return valid;
+}
+
+form.addEventListener('submit',function(e){
   e.preventDefault();
-  const form = e.target;
-  const requiredFields = form.querySelectorAll('[required]');
-  let valid = true;
-  requiredFields.forEach(f=>{ if(!f.value){ valid=false; f.style.border='2px solid red'; } else { f.style.border='1px solid #ccc'; } });
-  if(!valid){ document.getElementById('formMessage').innerText='يرجى تعبئة جميع الحقول المطلوبة!'; return; }
+  if(!validateForm(form)){
+    formMsg.style.color='red';
+    formMsg.textContent='يرجى تعبئة جميع الحقول المطلوبة.';
+    return;
+  }
 
-  // Show payment success message
-  document.getElementById('formMessage').innerText='تم إرسال بياناتك بنجاح! رقم الطلب الجامعي: PNU-'+Math.floor(Math.random()*100000);
-  form.reset();
+  formMsg.style.color='green';
+  formMsg.textContent='تم إرسال البيانات بنجاح. جاري الانتقال إلى صفحة الدفع...';
+
+  setTimeout(()=>{
+    drawer.innerHTML=`
+      <div class="app-form">
+        <h3>صفحة إثبات الدفع / Payment</h3>
+        <p>المبلغ: 1000 ريال</p>
+        <p>رقم الحساب: SA4080000859608017979448</p>
+        <label>اسم البنك:</label>
+        <input id="bankName" placeholder="اكتب اسم البنك">
+        <label>تاريخ التحويل:</label>
+        <input type="date" id="transDate">
+        <label>رقم العملية:</label>
+        <input id="transId" placeholder="مثال: 123456789">
+        <button id="sendPayment" class="btn primary">إرسال إثبات الدفع</button>
+        <div id="paymentMsg" class="form-message"></div>
+      </div>
+    `;
+
+    const sendPayment=document.getElementById('sendPayment');
+    const paymentMsg=document.getElementById('paymentMsg');
+
+    sendPayment.addEventListener('click',()=>{
+      const bankName=document.getElementById('bankName').value.trim();
+      const transDate=document.getElementById('transDate').value;
+      const transId=document.getElementById('transId').value.trim();
+
+      if(!bankName || !transDate || !transId){
+        paymentMsg.style.color='red';
+        paymentMsg.textContent='يرجى ملء جميع بيانات الدفع.';
+        return;
+      }
+
+      // Success final message
+      drawer.innerHTML=`
+        <div class="app-form">
+          <h3>تم استلام كافة بياناتك بنجاح ✅</h3>
+          <p>سيتم التواصل معك خلال 24 ساعة.</p>
+          <p>رقم الطالب الجامعي الخاص بك: <strong>${Math.floor(100000 + Math.random()*900000)}</strong></p>
+        </div>
+      `;
+    });
+
+  },1500);
+
 });
 </script>
+
 </body>
-                                    </html>
+  </html>
 </body>
 </html>
+
 
 
 
